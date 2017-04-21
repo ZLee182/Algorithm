@@ -37,5 +37,16 @@ char* reverseString(char* s) {
     return s;
 }
 
-//解法三，耗时
+//解法三
 
+void reverse(char* str)
+{
+    char* p = str + strlen(str)-1;
+    char temp;
+    while(str<p)
+    {
+        temp=*p;
+        *p--=*str;
+        *str++=temp;
+    }
+}
