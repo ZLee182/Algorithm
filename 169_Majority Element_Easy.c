@@ -1,4 +1,9 @@
 /*
+题目要求：
+Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+
+You may assume that the array is non-empty and the majority element always exist in the array.
+
 主元素问题
 给定一串数字，从中找出超过n/2的数，这个数字定义为主元素
 最开始的时候用了两个for循环计算出来，但是时间复杂度太大了，达到了n的平方，在提交的时候，时间受限。
