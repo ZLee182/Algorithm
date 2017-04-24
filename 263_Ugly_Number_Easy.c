@@ -5,6 +5,7 @@ Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For 
 
 Note that 1 is typically treated as an ugly number. 
 */
+//解法一 6ms
 int fun(int num)
 {
     if(num%2==0)
@@ -36,3 +37,14 @@ bool isUgly(int num) {
     return;
 }
 
+//解法二 3ms
+bool isUgly(int num) {
+    int i;
+    for(i=2;i<6&&num;i++)
+        while(num%i==0)
+            num/=i;
+    if(num==1)
+        return true;
+    else
+        return false;
+}
