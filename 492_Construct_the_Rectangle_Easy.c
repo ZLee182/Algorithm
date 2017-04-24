@@ -28,6 +28,7 @@ Note:
  * Return an array of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
+//解法一  496ms
 int* constructRectangle(int area, int* returnSize) {
     int* l_w;
     int min=area,i;
@@ -43,6 +44,19 @@ int* constructRectangle(int area, int* returnSize) {
     i = count;
     l_w[0] = i > area/i ? i : area/i;
     l_w[1] = i < area/i ? i : area/i;
+    *returnSize = 2;
+    return l_w;
+}
+
+//解法二  3ms
+
+int* constructRectangle(int area, int* returnSize) {
+    int* l_w = (int*)malloc(2*sizeof(int*));
+    int w = sqrt(area);
+    while(area%w!=0)
+        w--;
+    l_w[1] = w;
+    l_w[0] = area/l_w[1];
     *returnSize = 2;
     return l_w;
 }
