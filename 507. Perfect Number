@@ -1,0 +1,35 @@
+/*
+ 
+We define the Perfect Number is a positive integer that is equal to the sum of all its positive divisors except itself.
+Now, given an integer n, write a function that returns true when it is a perfect number and false when it is not.
+
+Example:
+
+Input: 28
+Output: True
+Explanation: 28 = 1 + 2 + 4 + 7 + 14
+
+Note: The input number n will not exceed 100,000,000. (1e8) 
+*/
+//思路：数目到了一亿，最短的循环是sqrt(x)。之前循环到n，然后时间输出超限。
+// 6ms   21%
+bool checkPerfectNumber(int num) {
+    int i,j,total = 0;
+    if(num == 0)
+        return false;
+    else if(num == 1)
+        return false;
+    
+    for( i = 2; i < sqrt(num); i++)
+        if( (num % i) == 0 && ( i != num/i ))
+            total = total + i + num/i;
+        else if( (num % i == 0) &&( i!= num/i ))
+            total = total +i;
+    total++;
+
+    if( total == num)
+        return true;
+    else
+        return false;
+    return;
+}
