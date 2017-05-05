@@ -1,0 +1,19 @@
+/*
+
+Determine whether an integer is a palindrome. Do this without extra space.
+*/
+//思路：原本不想用数组，想用首位除以相应的位数，然后跟最末尾数相比较，不过这太麻烦了，然后就直接用的数组。
+//199ms   55%
+#define max 10000
+bool isPalindrome(int x) {
+    if(x<0)
+        return false;
+    int i,j,num[max];
+    for( i = 0; x != 0; num[i] = x % 10,x = x / 10,i++)
+    ;
+    i--;
+    for(j=i,i=0; j >= i;i++,j--)
+        if(num[i] != num[j])
+            return false;
+    return true;
+}
