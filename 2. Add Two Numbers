@@ -1,0 +1,29 @@
+/*
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+*/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+//struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
+/*
+思路：首先我想的是，重新创建一个ListNode* l;
+然后将两个链表的每个值相加，其中存在两个难点。
+第一个难点：    如果两个链表不相同，需要申请新的空间。后来发现是这么写： 难点
+                    struct ListNode *p;
+                    p = (struct ListNode *)malloc(sizeof(struct ListNode));
+第二个难点：
+            
+第二个思路：
+申请三个数组，比较两个链表大小，取其中最大值。然后创建“和数组”，将“和数组”存到新链表中，但是有个问题。
+比如说：l1有三个数，然后申请新的链表a，但是如果相加和有四个数，a赋值给了l1，返回却只有三个数。死活返回不了四个数。
+
+*/
