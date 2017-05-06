@@ -1,0 +1,28 @@
+/*
+
+Related to question Excel Sheet Column Title
+
+Given a column title as appear in an Excel sheet, return its corresponding column number.
+
+For example:
+
+    A -> 1
+    B -> 2
+    C -> 3
+    ...
+    Z -> 26
+    AA -> 27
+    AB -> 28 
+*/
+//思路：每次把数组循环一遍，减去ASCII码值64得数字，加起来就可以了。
+//6ms  1.2%
+int titleToNumber(char* s) {
+    if(s[0]==NULL)
+        return NULL;
+        
+    int length = strlen(s);
+    int i,j,count = (s[length - 1] -64);
+    for(i = length - 2, j = 1; i >= 0 ; i--,j++)
+        count = count + (s[i] - 64)*pow(26,j);
+    return count;
+}
