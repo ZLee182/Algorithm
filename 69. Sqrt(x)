@@ -1,0 +1,10 @@
+/*
+ 
+Implement int sqrt(int x).
+
+Compute and return the square root of x.
+*/
+//思路：单纯的开平方，17%  6ms
+int mySqrt(int x) {
+    return sqrt(x);
+}
