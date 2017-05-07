@@ -1,0 +1,43 @@
+/*
+
+Given an integer array with even length, where different numbers in this array represent different kinds of candies. Each number means one candy of the corresponding kind. You need to distribute these candies equally in number to brother and sister. Return the maximum number of kinds of candies the sister could gain.
+
+Example 1:
+
+Input: candies = [1,1,2,2,3,3]
+Output: 3
+Explanation:
+There are three different kinds of candies (1, 2 and 3), and two candies for each kind.
+Optimal distribution: The sister has candies [1,2,3] and the brother has candies [1,2,3], too. 
+The sister has three different kinds of candies. 
+
+Example 2:
+
+Input: candies = [1,1,2,3]
+Output: 2
+Explanation: For example, the sister has candies [2,3] and the brother has candies [1,1]. 
+The sister has two different kinds of candies, the brother has only one kind of candies. 
+
+*/
+//思路：创建一个数组，以糖果种类为序号，出现哪种糖果，放入哪个数组中，统计种类的最大值最小值，减少循环次数。
+int distributeCandies(int* candies, int candiesSize) {
+    int i,max = 0,max_number = 0,min_number = 100010;
+    int num[200010]={0};
+    for(i=0;i<candiesSize;i++)//把不同糖果出现的次数放到其对应的数组里面
+    {
+        num[candies[i]+100000]++;//防止出现负数糖果
+        
+        if( max_number < candies[i] )//找到最大的糖果种类
+            max_number = candies[i];
+            
+        if( min_number > candies[i])//找到最小的
+            min_number = candies[i];
+    }
+    for(i=min_number+100000;i<max_number+100001;i++)//减少循环次数
+    {
+        if(num[i]>=1)
+            max++;
+    }
+    max = max < (candiesSize/2) ? max :(candiesSize/2); 
+    return max;
+}
