@@ -1,0 +1,70 @@
+/*
+
+Given an arbitrary ransom note string and another string containing letters from all the magazines, write a function that will return true if the ransom note can be constructed from the magazines ; otherwise, it will return false.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Note:
+You may assume that both strings contain only lowercase letters.
+
+canConstruct("a", "b") -> false
+canConstruct("aa", "ab") -> false
+canConstruct("aa", "aab") -> true
+
+*/
+//思路：两个字符串，查看第二个字符串是否有第一个字符串的全部字符。
+//12ms  15%
+bool canConstruct(char* ransomNote, char* magazine) {
+    int num[128]={0x00};
+    char* p = ransomNote;
+    char* q = magazine;
+    
+    while(*q)
+    {
+        num[*q]++;
+        q++;
+    }
+    
+    while(*p)
+    {
+        if(!num[*p])//如果num[*p]为0，则说明第二个字符串没有包含，返回false
+        {
+            return false;
+        }
+        num[*p]--;
+        p++;
+    }
+    return true;
+}
+
+//之前写的，全部都是超时，大量数据在一块时，最快都是229ms
+bool canConstruct(char* ransomNote, char* magazine) {
+    int num[124]={0};
+    int i,count = 0;
+    //printf("success\n");
+    if( ransomNote[0]==NULL)
+        return true;
+        printf("success");
+    for( i = 0; i < strlen(ransomNote); i++,count++)
+        num[ransomNote[i]]++;
+    //printf("count = %d\n",count);
+    i = 0;
+    while( i < strlen(magazine) )
+    {
+        if(num[magazine[i]]>0)
+        {
+            num[magazine[i]]--;
+            count--;
+            if(count <= 0)
+            {
+                return true;
+            }
+        }
+        i++;
+    }
+    
+    if(count>0)
+        return false;
+    
+    return;
+}
