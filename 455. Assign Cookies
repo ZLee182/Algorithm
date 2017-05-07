@@ -1,0 +1,116 @@
+/*
+Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie. Each child i has a greed factor gi, which is the minimum size of a cookie that the child will be content with; and each cookie j has a size sj. If sj >= gi, we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number. 
+
+Note:
+ You may assume the greed factor is always positive. 
+ You cannot assign more than one cookie to one child. 
+
+Example 1:
+
+Input: [1,2,3], [1,1]
+
+Output: 1
+
+Explanation: You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3. 
+And even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.
+You need to output 1.
+
+
+
+Example 2:
+
+Input: [1,2], [1,2,3]
+
+Output: 2
+
+Explanation: You have 2 children and 3 cookies. The greed factors of 2 children are 1, 2. 
+You have 3 cookies and their sizes are big enough to gratify all of the children, 
+You need to output 2.
+
+
+*/
+//思路：把饼干与贪婪程度排好序，然后用饼干比较贪心程度，大于的话就记下来
+//85%   19ms
+
+void quicksort(int* g,int left,int right) 
+{ 
+    int i,j,t,temp; 
+    if(left>right) 
+       return; 
+                                
+    temp=g[left]; //temp中存的就是基准数 
+    i=left; 
+    j=right; 
+    while(i!=j) 
+    { 
+                   //顺序很重要，要先从右边开始找 
+                   while(g[j]>=temp && i<j) 
+                            j--; 
+                   //再找右边的 
+                   while(g[i]<=temp && i<j) 
+                            i++; 
+                   //交换两个数在数组中的位置 
+                   if(i<j) 
+                   { 
+                            t=g[i]; 
+                            g[i]=g[j]; 
+                            g[j]=t; 
+                   } 
+    } 
+    //最终将基准数归位 
+    g[left]=g[i]; 
+    g[i]=temp; 
+                             
+    quicksort(g,left,i-1);//继续处理左边的，这里是一个递归的过程 
+    quicksort(g,i+1,right);//继续处理右边的 ，这里是一个递归的过程 
+} 
+
+void quicksort_s(int* s,int left,int right) 
+{ 
+    int i,j,t,temp; 
+    if(left>right) 
+       return; 
+                                
+    temp=s[left]; //temp中存的就是基准数 
+    i=left; 
+    j=right; 
+    while(i!=j) 
+    { 
+                   //顺序很重要，要先从右边开始找 
+                   while(s[j]>=temp && i<j) 
+                            j--; 
+                   //再找右边的 
+                   while(s[i]<=temp && i<j) 
+                            i++; 
+                   //交换两个数在数组中的位置 
+                   if(i<j) 
+                   { 
+                            t=s[i]; 
+                            s[i]=s[j]; 
+                            s[j]=t; 
+                   } 
+    } 
+    //最终将基准数归位 
+    s[left]=s[i]; 
+    s[i]=temp; 
+                             
+    quicksort_s(s,left,i-1);//继续处理左边的，这里是一个递归的过程 
+    quicksort_s(s,i+1,right);//继续处理右边的 ，这里是一个递归的过程 
+} 
+
+int findContentChildren(int* g, int gSize, int* s, int sSize) {
+    int i,j,count=0;
+    
+    quicksort(g,0,gSize-1);//贪婪程度
+    quicksort_s(s,0,sSize-1);//饼干大小
+
+    for(i=0,j=0;i<sSize&&j<gSize;i++)
+    {
+        if(s[i] >= g[j])
+        {
+            count++;
+            j++;
+        }
+    }
+    return count;
+} 
