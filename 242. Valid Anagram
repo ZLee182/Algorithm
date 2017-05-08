@@ -1,0 +1,52 @@
+/*
+242. Valid Anagram
+Given two strings s and t, write a function to determine if t is an anagram of s.
+
+For example,
+s = "anagram", t = "nagaram", return true.
+s = "rat", t = "car", return false.
+
+Note:
+You may assume the string contains only lowercase alphabets.
+*/
+//题意：两个字符串是否是相互的乱序排放，只需要检查两个字符串的每个字符都一一对应即可。如果不对应就返回false
+//思路：首先把第一个字符串每个字符在对应ASCII码值数组存放起来，然后将第二个字符串减去
+//3ms 37%
+bool isAnagram(char* s, char* t) {
+    int num[124]={0};
+    int i,count = 0;
+    
+    if(s[0]==NULL&&t[0]==NULL)//判断这两个输入是否为零
+        return true;
+        
+    if(strlen(s)!=strlen(t))//如果两个字符串不相同，则直接输出false
+        return false;
+     
+    while(*s)//把第一个字符串每个字符的ASCII码值放到对应的数组中
+    {
+        num[*s]++;
+        s++;
+        count++;//统计一共有几个字符
+    }
+    
+    while(*t)//将第二个字符串ASCII码值对应的数组减一
+    {
+        num[*t]--;
+        t++;
+        count--;//减去对应的字符个数
+        
+        if(num[*t]<0)
+            return false;
+    }
+    
+    if(count!=0)//如果count的个数大于零，则说明是false
+        return false;
+    
+    for( i = 96; i < 124 ; i++)//如果其中任意一个数组大于零，则说明没有全部覆盖
+    {
+        if(num[i]<0)
+            return false;
+    }
+        
+    return true;
+}
