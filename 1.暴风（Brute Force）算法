@@ -3,28 +3,4 @@
 暴风(Brute Force)算法是普通的模式匹配算法，BF算法的思想就是将目标串S的第一个字符与模式串T的第一个字符进行匹配，若相等，则继续比较S的第二个字符和 T的第二个字符；若不相等，则比较S的第二个字符和T的第一个字符，依次比较下去，直到得出最后的匹配结果。BF算法是一种蛮力算法。
 时间复杂度最慢达到O（n*m）
 */
-#include<stdio.h>
-int main()
-{
-    char a[101],b[101];
-    int i, j=0, la ,lb, count,sign=0;
-    printf("请输入两个字符串，第一个为主串，第二个为子串，两个字符串换行后分别输入：\n");
 
-    gets(a);
-    gets(b);
-    la = strlen(a);
-    
-    printf("使用Brute Force算法查找两个字符串是否有重叠部分：\n");
-    for( i=0; i<la; i++)
-    {
-        if(a[i]==b[j])
-        {
-            sign = 1;
-            printf("%c",a[i]);
-            j++;
-        }
-    }
-    if(sign==0)
-        printf("两个字符串没有共同字符\n");
-    return 0;
-}
