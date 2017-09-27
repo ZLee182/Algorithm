@@ -1,0 +1,79 @@
+题目描述：
+
+Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
+
+Example 1:
+
+Input:
+    3
+   / \
+  9  20
+    /  \
+   15   7
+Output: [3, 14.5, 11]
+Explanation:
+The average value of nodes on level 0 is 3,  on level 1 is 14.5, and on level 2 is 11. Hence return [3, 14.5, 11].
+
+Note:
+
+    The range of node's value is in the range of 32-bit signed integer.
+
+做题思路：
+
+利用层次遍历，重点在于分层，分出层之后就能求出每一层的平均值了。
+
+答案详解：
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<double> averageOfLevels(TreeNode* root) {
+        vector<double> a;
+        TreeNode* p = root;
+        int rear = -1;//生命队列的前后位置
+        int front = -1;
+        int last = 0;//当front等于last时，level++
+        int level = 0;
+        struct TreeNode* q[10001];//将节点存在队列里面
+        double ave;//每层的平均数
+        int i = 0;//每一层有几个节点
+        
+        if(root=NULL){
+            a.push_back(NULL);
+            return a;
+        }
+        
+        q[++rear] = p;//初始化第一个节点
+        i=0;
+        
+        while(front<rear)
+        {
+            ave = ave + q[++front]->val;
+            cout<< ave << endl;
+            p = q[front];
+            i++;
+            if(p->left){
+                q[++rear] = p->left;
+            }
+            if(p->right){
+                q[++rear] = p->right;
+            }
+            if( front == last)
+            {
+                a.push_back(ave/i);
+                last = rear;
+                ave = 0;
+                i=0;
+            }
+        }
+        return a;
+    }
+};
