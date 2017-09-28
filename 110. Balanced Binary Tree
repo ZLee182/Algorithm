@@ -1,0 +1,57 @@
+题目描述：
+
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+
+思路详解：
+
+
+设置一个高度h与平衡因子balance，如果平衡，则为1，如果不平衡，则为0.如果节点为空，则为h=0,balance = 1;如果节点无孩子 ,h=1,balance = 1;
+
+再向上比较balance即可。
+
+答案详解：
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void judge(TreeNode* root, int &balance,int &h)
+    {
+         int br,bl,hr,hl;
+        if(root==NULL)
+        {
+            balance=1;
+            h=0;
+        }
+        else if(root->left==NULL&&root->right==NULL)
+        {
+            balance=1;
+            h=1;
+        }
+        else
+        {
+            judge(root->left,bl,hl);
+            judge(root->right,br,hr);
+            h=(hr > hl ? hr : hl)+1;
+            if(abs(hr-hl)<2)
+                balance=bl&br;
+            else
+                balance=0;
+        }
+}
+
+    bool isBalanced(TreeNode* root) {
+        int balance,h;
+        judge(root,balance,h);
+        return balance;
+    }
+};
