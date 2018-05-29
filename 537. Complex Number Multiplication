@@ -1,0 +1,38 @@
+/*
+ Given two strings representing two complex numbers.
+
+You need to return a string representing their multiplication. Note i2 = -1 according to the definition.
+
+Example 1:
+
+Input: "1+1i", "1+1i"
+Output: "0+2i"
+Explanation: (1 + i) * (1 + i) = 1 + i2 + 2 * i = 2i, and you need convert it to the form of 0+2i.
+
+Example 2:
+
+Input: "1+-1i", "1+-1i"
+Output: "0+-2i"
+Explanation: (1 - i) * (1 - i) = 1 + i2 - 2 * i = -2i, and you need convert it to the form of 0+-2i.
+
+Note:
+
+    The input strings will not have extra blank.
+    The input strings will be given in the form of a+bi, where the integer a and b will both belong to the range of [-100, 100]. And the output should be also in this form.
+
+*/
+//先把字符串从+号分隔开，然后去除字符i，之后加起来就行了
+class Solution {
+    public String complexNumberMultiply(String a, String b) {
+        String[] num1 = a.split("\\+");
+        String[] num2 = b.split("\\+");
+        String num =null;
+        num1[1] = num1[1].replaceAll("i", "");
+        num2[1] = num2[1].replaceAll("i", "");
+        int a1 = Integer.valueOf(num1[0])*Integer.valueOf(num2[0]);
+        int a2 = Integer.valueOf(num1[1])*Integer.valueOf(num2[0]);
+        int a3 = Integer.valueOf(num1[0])*Integer.valueOf(num2[1]);
+        int a4 = Integer.valueOf(num1[1])*Integer.valueOf(num2[1]);
+        return String.valueOf(a1-a4)+"+"+String.valueOf(a3+a2)+"i";
+    }
+}
