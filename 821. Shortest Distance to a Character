@@ -1,0 +1,50 @@
+/*
+Given a string S and a character C, return an array of integers representing the shortest distance from the character C in the string.
+
+Example 1:
+
+Input: S = "loveleetcode", C = 'e'
+Output: [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0]
+
+ 
+
+Note:
+
+    S string length is in [1, 10000].
+    C is a single character, and guaranteed to be in string S.
+    All letters in S and C are lowercase.
+
+
+*/
+/*
+思路很简单，每一位从左从右两侧进行查询，收录最小值即可。
+*/
+class Solution {
+    public int[] shortestToChar(String s, char c) {
+        int[] num = new int[s.length()];
+
+        
+        for(int i=0; i<s.length(); i++){
+        	int left = Integer.MAX_VALUE;
+            int right = Integer.MAX_VALUE;
+        	
+            for(int j=i; j<s.length(); j++) {
+        		if(s.charAt(j)==c){
+        			left = j-i;
+                    break;
+                }
+        	}
+        	
+        	for(int j=i; j>=0; j--) {
+        		if(s.charAt(j)==c){
+        			right = i-j;
+                    break;
+                }
+        	}
+        	
+        	num[i] = left<right?left:right;
+        }
+        
+        return num;
+    }
+}
